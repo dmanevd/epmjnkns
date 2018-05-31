@@ -1,7 +1,7 @@
 def CONTAINER_NAME = "epmjnkns-pipeline"
 def CONTAINER_TAG = "latest"
 def APP_HTTP_PORT = "5050"
-
+def DOCKER_HUB_USER = "dmanevd"
 node {
     stage('Initialize') {
         def dockerHome = tool 'myDocker'
@@ -40,7 +40,7 @@ node {
     }
 
     stage('Push to Docker Registry') {
-        withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', passwordVariable: 'PASSWORD', usernameVariable: 'DOCKER_HUB_USER')]) {
+        withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
             sh "docker login -u $DOCKER_HUB_USER -p $PASSWORD"
             sh "docker tag $CONTAINER_NAME:$CONTAINER_TAG $DOCKER_HUB_USER/$CONTAINER_NAME:$CONTAINER_TAG"
             sh "docker push $DOCKER_HUB_USER/$CONTAINER_NAME:$CONTAINER_TAG"
