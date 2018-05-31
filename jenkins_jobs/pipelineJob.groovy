@@ -43,7 +43,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
             sh "docker login -u $DOCKER_HUB_USER -p $PASSWORD"
             sh "docker tag $CONTAINER_NAME:$CONTAINER_TAG $DOCKER_HUB_USER/$CONTAINER_NAME:$CONTAINER_TAG"
-            sh "docker push $DOCKER_HUB_USER/$CONTAINER_NAME:$CONTAINER_TAG"
+            sh "docker push $CONTAINER_NAME:$CONTAINER_TAG"
             echo "Image push complete"
         }
     }
